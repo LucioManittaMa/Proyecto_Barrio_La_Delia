@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Agrega la librería jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Agrega la librería jQuery UI para el datepicker y el autocompletado -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+        body {
+            background: url('/static/img/imagen.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh; /* Ajusta el tamaño del fondo al alto de la ventana */
+            display: flex;
+            align-items: center; /* Centra verticalmente */
+            justify-content: center; /* Centra horizontalmente */
+        }
+        .form-ingreso {
+            max-width: 600px;
+            padding: 15px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+        }
+        .estilos{
+            display: flex;
+            justify-content: center;
+        }
+        .nav-link {
+            color: #ffffff !important;
+            margin-right: 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+    <title>Ingresos</title>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center mt-3">
+            <div class="estilos">
+                <a class="nav-link" href="{{ url_for('mostrar_salidas') }}">Salidas</a>
+                <a class="nav-link" href="{{ url_for('mostrar_consultas') }}">Consultas</a>
+            </div>
+        </div>
+        <div class="form-ingreso">
+            <h1 class="h3 mb-3 font-weight-normal text-center">Registrar Ingreso</h1>
+            <form method="POST" action="/ingresos">
+                <div class="form-group">
+                    <label for="nombreApellido">Nombre y Apellido</label>
+                    <input type="text" class="form-control" id="nombreApellido" name="nombre_apellido" required>
+                </div>
+                <div class="form-group">
+                    <label for="dni">D.N.I.</label>
+                    <input type="text" class="form-control" id="dni" name="dni" required>
+                </div>
+                <div class="form-group">
+                    <label for="formaEntrada">Forma de entrada</label>
+                    <select class="form-control" id="formaEntrada" name="forma_entrada" required>
+                        <option value="Peatón">Peatón</option>
+                        <option value="Vehículo">Vehículo</option>
+                    </select>
+                </div>
+                <div class="form-group d-none" id="campoPatente">
+                    <label for="patente">Patente</label>
+                    <input type="text" class="form-control" id="patente" name="patente">
+                </div>
+                <div class="form-group">
+                    <label for="ingresante">Ingresante</label>
+                    <select class="form-control" id="ingresante" name="ingresante" required>
+                        <option value="Propietario">Propietario</option>
+                        <option value="Visita">Visita</option>
+                        <option value="Servicio">Servicio</option>
+                    </select>
+                </div>
+                <div class="form-group d-none" id="campoPropiedad">
+                    <label for="propiedadDe">Propiedad de</label>
+                    <input type="text" class="form-control" id="propiedadDe" name="propiedad_de">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#nombreApellido').autocomplete({
+                source: '/autocomplete', // Ruta de la función de autocompletado en Flask
+                minLength: 2, // Número mínimo de caracteres antes de mostrar sugerencias
+                select: function(event, ui) {
+                    // Al seleccionar un nombre, completa automáticamente el campo DNI con el valor correspondiente
+                    $('#dni').val(ui.item.dni);
+                }
+            });
+
+            $('#formaEntrada').change(function() {
+                const campoPatente = $('#campoPatente');
+                if ($(this).val() === 'Vehículo') {
+                    campoPatente.removeClass('d-none');
+                } else {
+                    campoPatente.addClass('d-none');
+                }
+            });
+
+            $('#ingresante').change(function() {
+                const campoPropiedad = $('#campoPropiedad');
+                if ($(this).val() === 'Visita' || $(this).val() === 'Servicio') {
+                    campoPropiedad.removeClass('d-none');
+                } else {
+                    campoPropiedad.addClass('d-none');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

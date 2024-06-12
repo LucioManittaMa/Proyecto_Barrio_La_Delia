@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('/static/img/imagen.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+        }
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+        }
+    </style>
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form-signin">
+            <h1 class="h3 mb-3 font-weight-normal text-center">Por favor, inicia sesión</h1>
+            <form method="POST" action = '/login'>
+                <label for="inputPassword" class="sr-only">Contraseña</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Contraseña" required autofocus>
+                <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

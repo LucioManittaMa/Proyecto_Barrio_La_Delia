@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('/static/img/imagen.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh; /* Ajusta el tamaño del fondo al alto de la ventana */
+            display: flex;
+            align-items: center; /* Centra verticalmente */
+            justify-content: center; /* Centra horizontalmente */
+        }
+        .form-salida {
+            max-width: 600px;
+            padding: 15px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+        }
+        .estilos{
+            display: flex;
+            justify-content: center;
+        }
+        .nav-link {
+            color: #ffffff !important;
+            margin-right: 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+    <title>Salidas</title>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center mt-3">
+            <div class="estilos">
+                <a class="nav-link" href="{{ url_for('mostrar_ingresos') }}">Ingresos</a>
+                <a class="nav-link" href="{{ url_for('mostrar_consultas') }}">Consultas</a>
+            </div>
+        </div>
+        <div class="form-salida">
+            <h1 class="h3 mb-3 font-weight-normal text-center">Registrar Salida</h1>
+            <form method="POST">
+                <label for="tipo_salida">Tipo de salida:</label>
+                <select id="tipo_salida" name="tipo_salida">
+                    <option value="dni">DNI</option>
+                    <option value="patente">Patente</option>
+                </select>
+                <div id="campo_dni" class="form-group">
+                    <label for="dni">DNI:</label>
+                    <input type="text" id="dni" name="dni" class="form-control">
+                </div>
+                <div id="campo_patente" class="form-group" style="display: none;">
+                    <label for="patente">Patente:</label>
+                    <input type="text" id="patente" name="patente" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar salida</button>
+            </form>
+            
+            <script>
+                document.getElementById('tipo_salida').addEventListener('change', function() {
+                    var tipoSalida = this.value;
+                    var campoDni = document.getElementById('campo_dni');
+                    var campoPatente = document.getElementById('campo_patente');
+                    
+                    if (tipoSalida === 'dni') {
+                        campoDni.style.display = 'block';
+                        campoPatente.style.display = 'none';
+                    } else if (tipoSalida === 'patente') {
+                        campoDni.style.display = 'none';
+                        campoPatente.style.display = 'block';
+                    }
+                });
+            </script>
+        </div>
+    </div>
+</body>
+</html>

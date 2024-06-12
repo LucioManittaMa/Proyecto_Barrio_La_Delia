@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Agrega la librería jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Agrega la librería jQuery UI para el datepicker -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+        body {
+            background: url('/static/img/imagen.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh; /* Ajusta el tamaño del fondo al alto de la ventana */
+            display: flex;
+            align-items: center; /* Centra verticalmente */
+            justify-content: center; /* Centra horizontalmente */
+        }
+        .form-consulta {
+            max-width: 600px;
+            padding: 15px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+        }
+        .estilos{
+            display: flex;
+            justify-content: center;
+        }
+        .nav-link {
+            color: #ffffff !important;
+            margin-right: 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+    <title>Consultas</title>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center mt-3">
+            <div class="estilos">
+                <a class="nav-link" href="{{ url_for('mostrar_ingresos') }}">Ingresos</a>
+                <a class="nav-link" href="{{ url_for('mostrar_salidas') }}">Salidas</a>
+            </div>
+        </div>
+        <div class="form-consulta">
+            <h1 class="h3 mb-3 font-weight-normal text-center">Consultas</h1>
+            <form method="POST">
+                <label for="consulta">Tipo de consulta:</label>
+                <select id="consulta" name="consulta">
+                    <option value="ultimo_ingreso">Último ingreso</option>
+                    <option value="ultimo_salida">Última salida</option>
+                    <option value="ingresos_casa">Ingresos a una casa</option>
+                </select>
+                <div id="campo_dni_patente" class="form-group">
+                    <label for="dni_patente">DNI o Patente:</label>
+                    <input type="text" id="dni_patente" name="dni_patente" class="form-control">
+                </div>
+                <div id="campo_propiedad" class="form-group" style="display: none;">
+                    <label for="propiedad">Propiedad:</label>
+                    <input type="text" id="propiedad" name="propiedad" class="form-control">
+                </div>
+                <div id="campo_fecha" class="form-group" style="display: none;">
+                    <label for="fecha">Fecha (YYYY-MM-DD):</label>
+                    <input type="text" id="fecha" name="fecha" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Consultar</button>
+            </form>
+            <!-- Div for displaying results -->
+            <div id="resultado" class="mt-3">
+                {% if resultado %}
+                <div class="alert alert-info">{{ resultado }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para manejar la actualización del formulario -->
+    <script>
+        $(document).ready(function() {
+            // Configuración del datepicker
+            $("#fecha").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true
+            });
+
+            // Evento para detectar el cambio en el tipo de consulta
+            $("#consulta").change(function() {
+                var consulta = $(this).val();
+                var campoDniPatente = $("#campo_dni_patente");
+                var campoPropiedad = $("#campo_propiedad");
+                var campoFecha = $("#campo_fecha");
+
+                if (consulta === 'ultimo_ingreso' || consulta === 'ultimo_salida') {
+                    campoDniPatente.show();
+                    campoPropiedad.hide();
+                    campoFecha.hide();
+                } else if (consulta === 'ingresos_casa') {
+                    campoDniPatente.hide();
+                    campoPropiedad.show();
+                    campoFecha.show();
+                }
+            });
+
+            // Trigger change event on page load to set initial state
+            $("#consulta").trigger("change");
+        });
+    </script>
+</body>
+</html>
+</html>
