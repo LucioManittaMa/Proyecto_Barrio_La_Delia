@@ -55,12 +55,12 @@ def procesar_ingresos():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
     
-    nombre_apellido = request.form['nombre_apellido']
+    nombre_apellido = request.form['nombre_apellido'].lower().replace(" ", "")
     dni = request.form['dni']
     forma_entrada = request.form['forma_entrada']
-    patente = request.form['patente'] if forma_entrada == 'Vehículo' else None
+    patente = request.form['patente'].upper().replace(" ", "") if forma_entrada == 'Vehículo' else None
     ingresante = request.form['ingresante']
-    propiedad_de = request.form['propiedad_de'] if ingresante in ['Visita', 'Servicio'] else None
+    propiedad_de = request.form['propiedad_de'].lower().replace(" ", "") if ingresante in ['Visita', 'Servicio'] else None
 
     # Definir la zona horaria de Argentina
     argentina_tz = pytz.timezone('America/Argentina/Buenos_Aires')
@@ -121,7 +121,7 @@ def procesar_salidas():
         else:
             flash('Usuario no encontrado')
     elif tipo_salida == 'patente':
-        patente = request.form['patente']
+        patente = request.form['patente'].upper().replace(" ", "")
         usuarios = Usuario.query.filter_by(patente=patente, fecha_hora_salida=None).all()
 
         if usuarios:
@@ -142,18 +142,21 @@ def mostrar_consultas():
     return render_template('consultas.html')
 
 def obtener_ultimo_ingreso(dni_patente):
+    dni_patente_normalizado = dni_patente.upper().replace(" ", "")
     usuario = Usuario.query.filter(
-        (Usuario.dni == dni_patente) | (Usuario.patente == dni_patente)
+        (Usuario.dni == dni_patente) | (Usuario.patente == dni_patente_normalizado)
     ).order_by(Usuario.fecha_hora_ingreso.desc()).first()
     return usuario
 
 def obtener_ultimo_salida(dni_patente):
+    dni_patente_normalizado = dni_patente.upper().replace(" ", "")
     usuario = Usuario.query.filter(
-        (Usuario.dni == dni_patente) | (Usuario.patente == dni_patente)
+        (Usuario.dni == dni_patente) | (Usuario.patente == dni_patente_normalizado)
     ).order_by(Usuario.fecha_hora_salida.desc()).first()
     return usuario
 
 def obtener_ingresos_casa(propiedad, fecha):
+    propiedad = propiedad.lower().replace(" ", "")
     start_of_day = datetime.combine(fecha, datetime.min.time())
     end_of_day = datetime.combine(fecha, datetime.max.time())
 
@@ -210,10 +213,11 @@ def procesar_consultas():
 
 @app.route('/autocomplete', methods=['GET'])
 def autocomplete():
-    search = request.args.get('term')
+    search = request.args.get('term').lower().replace(" ", "")
     usuarios = Usuario.query.filter(Usuario.nombre_apellido.ilike(f'%{search}%')).all()
     suggestions = [{'label': usuario.nombre_apellido, 'dni': usuario.dni, 'forma_entrada': usuario.forma_entrada, 'patente': usuario.patente, 'ingresante': usuario.ingresante, 'propiedad_de': usuario.propiedad_de} for usuario in usuarios]
     return jsonify(suggestions)
 
 if __name__ == '__main__':
     app.run(debug=True)
+

@@ -48,9 +48,9 @@
         </div>
         <div class="form-ingreso">
             <h1 class="h3 mb-3 font-weight-normal text-center">Registrar Ingreso</h1>
-            <form method="POST" action="/ingresos">
+            <form method="POST" action="/ingresos" id="formIngreso">
                 <div class="form-group">
-                    <label for="nombreApellido">Nombre y Apellido</label>
+                    <label for="nombreApellido">Nombre y Apellido (solo minusculas)</label>
                     <input type="text" class="form-control" id="nombreApellido" name="nombre_apellido" required>
                 </div>
                 <div class="form-group">
@@ -65,7 +65,7 @@
                     </select>
                 </div>
                 <div class="form-group d-none" id="campoPatente">
-                    <label for="patente">Patente</label>
+                    <label for="patente">Patente (Sin espacios)</label>
                     <input type="text" class="form-control" id="patente" name="patente">
                 </div>
                 <div class="form-group">
@@ -111,6 +111,13 @@
                 } else {
                     campoPropiedad.addClass('d-none');
                 }
+            });
+
+            $('#formIngreso').submit(function() {
+                // Convertir nombre y apellido a minúsculas y sin espacios
+                $('#nombreApellido').val($('#nombreApellido').val().toLowerCase().replace(/\s/g, ''));
+                // Convertir patente a mayúsculas y sin espacios
+                $('#patente').val($('#patente').val().toUpperCase().replace(/\s/g, ''));
             });
         });
     </script>
