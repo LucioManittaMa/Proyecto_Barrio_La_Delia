@@ -1,16 +1,41 @@
-# Para que la aplicacion funcione correctamente necesitamos como minimo python 3.11 
-# Ahora despues de tener el repositorio en nuestra computadora vamos a abrir el cmd win+r y despues CMD
-# Dentro de el cmd vamos a ejecutar los siguientes comandos 
- CD (ruta del archivo) 
-# Por ejemplo (en el caso de que el archivo este en el escritorio)
- CD desktop\Proyecto_Barrio_La_Delia
-# Ahora vamos a crear y activar el entorno virtual
- python -m venv venv 
- venv\Scripts\activate
-# Deberia aparecer algo como (venv) ruta\al\directorio si es asi instalamos las dependencias
- pip install requirements.txt
-# Ejecutamos la aplicacion desde el cmd estando dentro de el entorno virtual
- python app.py
-# Ahora la aplicacion se va a estar ejecutando y vamos a abrir el navegador para entrar a ella y vamos a buscar
- localhost:5000
-# La aplicacion se va a mantener activa siempre y cuando no cerremos la terminal CMD si se cierra volvemos a abrirla accedemos al directorio y vamos a la parte de activar el entorno virtual (linea9)
+# Aplicación Flask para Registro de Ingresos y Salidas
+
+Esta es una aplicación Flask que permite registrar y consultar ingresos y salidas en un barrio cerrado.
+
+## Requisitos
+
+- Python 3.11
+- Git
+
+## Instrucciones de Configuración y Ejecución
+
+### 1. Clonar el Repositorio
+
+Clona este repositorio en tu máquina local utilizando el comando:
+
+```sh
+git clone https://github.com/LucioManittaMa/Proyecto_Barrio_La_Delia.git
+cd Desktop/Proyecto_Barrio_La_Delia
+```
+
+### 2. Configuracion y ejecución
+#### Linux
+Si es la primera vez que ejecutas la aplicación, utiliza el script setup_and_run.sh para configurar y ejecutar la aplicación automáticamente:
+```sh
+chmod +x setup_and_run.sh
+./setup_and_run.sh
+```
+Ejecuciones Posteriores
+Si ya has configurado la aplicación previamente, solo necesitas ejecutar el script run.sh para iniciar la aplicación:
+```sh
+chmod +x run.sh
+./run.sh
+```
+#### Windows
+##### Primera Ejecución (Configuración y Ejecución Automática)
+Si es la primera vez que ejecutas la aplicación, utiliza el script setup_and_run.bat para configurar y ejecutar la aplicación automáticamente. Haz doble clic en el archivo setup_and_run.bat 
+##### Ejecuciones Posteriores
+Si ya has configurado la aplicación previamente, solo necesitas ejecutar el script run.bat para iniciar la aplicación. Haz doble clic en el archivo run.bat 
+
+### 3. Acceder a la aplicación 
+Una vez que la aplicación esté en ejecución, abre tu navegador web y dirígete a http://localhost:5000 para acceder a la aplicación.
