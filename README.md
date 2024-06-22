@@ -22,8 +22,8 @@ cd Desktop/Proyecto_Barrio_La_Delia
 #### Linux
 Si es la primera vez que ejecutas la aplicación, utiliza el script setup_and_run.sh para configurar y ejecutar la aplicación automáticamente:
 ```sh
-chmod +x setup_and_run.sh
-./setup_and_run.sh
+chmod +x run_and_setup.sh
+./run_and_setup.sh
 ```
 Ejecuciones Posteriores
 Si ya has configurado la aplicación previamente, solo necesitas ejecutar el script run.sh para iniciar la aplicación:
@@ -33,7 +33,7 @@ chmod +x run.sh
 ```
 #### Windows
 ##### Primera Ejecución (Configuración y Ejecución Automática)
-Si es la primera vez que ejecutas la aplicación, utiliza el script setup_and_run.bat para configurar y ejecutar la aplicación automáticamente. Haz doble clic en el archivo setup_and_run.bat 
+Si es la primera vez que ejecutas la aplicación, utiliza el script setup_and_run.bat para configurar y ejecutar la aplicación automáticamente. Haz doble clic en el archivo run_and_setup.bat 
 ##### Ejecuciones Posteriores
 Si ya has configurado la aplicación previamente, solo necesitas ejecutar el script run.bat para iniciar la aplicación. Haz doble clic en el archivo run.bat 
 
