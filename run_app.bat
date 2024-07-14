@@ -13,5 +13,3 @@ set FLASK_ENV=development  REM Esto es opcional, establece el entorno en modo de
 REM Ejecutar la aplicación Flask
 flask run
 
-REM Mantener la ventana abierta después de la ejecución
-pause

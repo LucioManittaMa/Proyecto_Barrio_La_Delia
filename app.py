@@ -215,9 +215,19 @@ def procesar_consultas():
 def autocomplete():
     search = request.args.get('term').lower().replace(" ", "")
     usuarios = Usuario.query.filter(Usuario.nombre_apellido.ilike(f'%{search}%')).all()
-    suggestions = [{'label': usuario.nombre_apellido, 'dni': usuario.dni, 'forma_entrada': usuario.forma_entrada, 'patente': usuario.patente, 'ingresante': usuario.ingresante, 'propiedad_de': usuario.propiedad_de} for usuario in usuarios]
+    suggestions = [
+        {
+            'label': usuario.nombre_apellido,
+            'dni': usuario.dni,
+            'forma_entrada': usuario.forma_entrada,
+            'patente': usuario.patente,
+            'ingresante': usuario.ingresante,
+            'propiedad_de': usuario.propiedad_de
+        } for usuario in usuarios
+    ]
     return jsonify(suggestions)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 

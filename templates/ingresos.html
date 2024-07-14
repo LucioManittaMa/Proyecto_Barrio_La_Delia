@@ -90,8 +90,25 @@
                 source: '/autocomplete', // Ruta de la función de autocompletado en Flask
                 minLength: 2, // Número mínimo de caracteres antes de mostrar sugerencias
                 select: function(event, ui) {
-                    // Al seleccionar un nombre, completa automáticamente el campo DNI con el valor correspondiente
+                    // Al seleccionar un nombre, completa automáticamente los campos con los valores correspondientes
                     $('#dni').val(ui.item.dni);
+                    $('#formaEntrada').val(ui.item.forma_entrada);
+                    $('#patente').val(ui.item.patente);
+                    $('#ingresante').val(ui.item.ingresante);
+                    $('#propiedadDe').val(ui.item.propiedad_de);
+
+                    // Mostrar/ocultar campos según el valor seleccionado
+                    if (ui.item.forma_entrada === 'Vehículo') {
+                        $('#campoPatente').removeClass('d-none');
+                    } else {
+                        $('#campoPatente').addClass('d-none');
+                    }
+
+                    if (ui.item.ingresante === 'Visita' || ui.item.ingresante === 'Servicio') {
+                        $('#campoPropiedad').removeClass('d-none');
+                    } else {
+                        $('#campoPropiedad').addClass('d-none');
+                    }
                 }
             });
 
